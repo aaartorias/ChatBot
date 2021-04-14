@@ -37,9 +37,11 @@ Dialogflow transforms input string, events, audio to intent and action, paramete
 
 Entities extract parameter values from natural language input(helps to get parameters out of input string). They are pre-defined words, objects we need from conversation(user string). Entities are not needed for every possible concept mentioned in the agent, only those needed for the actions for the backend app. User entitites can be redefined on a session ID level allowing for specifice concepts like a user's playlist.
 
-Set up
+Set-up
     Install node from web
     Install Express:    
         npm init
         npm install express --save
+    Install Heroku CLI
     Heroku Deployment
+    
