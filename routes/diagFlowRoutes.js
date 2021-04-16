@@ -1,9 +1,4 @@
-const dialogFlow = require('dialogflow');
-const config = require('../config/keys');
-//const { dialogFlowSessionId } = require('../config/keys');
-// Create and initialize session client
-const sessionClient = new dialogFlow.SessionsClient();
-const sessionPath = sessionClient.sessionPath(config.googleProjectId, config.dialogFlowSessionId);
+const chatbot = require('../chatbot/chatbot');
 
 // module exports - special object - included by default in Node.js application by default
 // module variable represents current module 
@@ -17,29 +12,13 @@ module.exports = app => {
     });
 
     app.post('/api/df_event_query', async (req, res) => {
-
-        // The text query request.
-        const request = {
-          session: sessionPath,
-          queryInput: {
-            text: {
-              // The query to send to the dialogflow agent
-              text: req.body.text,
-              // The language used by the client (en-US)
-              languageCode: config.dialogFlowSessionLanguageCode,
-            },
-          },
-        };
-
-        // Detect intent endpoint call
-        let responses = await sessionClient
-            .detectIntent(request)
-            
+        let responses =  await chatbot.eventQuery(req.body.event, req.body.parameters);
         res.send(responses[0].queryResult);
     });
 
-    app.post('/api/df_text_query', (req, res) => {
-        res.send({'do':'text query'});
+    app.post('/api/df_text_query',  async (req, res) => {
+        let responses =  await chatbot.textQuery(req.body.text, req.body.parameters);
+        res.send(responses[0].queryResult);
     });
 
 };
