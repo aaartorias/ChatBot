@@ -16,7 +16,7 @@ module.exports = app => {
         res.send({'Hey':'There'});
     });
 
-    app.post('/api/df_event_query', (req, res) => {
+    app.post('/api/df_event_query', async (req, res) => {
 
         // The text query request.
         const request = {
@@ -32,23 +32,10 @@ module.exports = app => {
         };
 
         // Detect intent endpoint call
-        sessionClient
+        let responses = await sessionClient
             .detectIntent(request)
-            .then(response => {
-                console.log('Detected Intent');
-                const result = response[0].queryResult;
-                console.log(`   Query: ${result.queryText}`);
-                console.log(`   Response: ${result.fulfillmentText}`);
-                if (result.intent) {
-                    console.log(`   Intent: ${result.intent.displayName}`);
-                } else {
-                    console.log(`   No intent matched`);
-                }
-            })
-            .catch(err => {
-                console.error('Error', err);
-            });
-        res.send({'do':'text query'});
+            
+        res.send(responses[0].queryResult);
     });
 
     app.post('/api/df_text_query', (req, res) => {
