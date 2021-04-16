@@ -44,4 +44,18 @@ Set-up
         npm install express --save
     Install Heroku CLI
     Heroku Deployment
+    npx create-react-app client
+    Install Diagflow
+    npm install dialogflow --save
+
+    Set Environment Variables
+        Bash:
+        export <PATH_TO_JSON_FILE_CONTAINING_KEY_OBTAINED_FROM_SERVICE_ACCOUNT>
+
+        Windows:
+        set GOOGLE_APPLICATION_CREDENTIALS=/<PATH_TO_JSON_FILE_CONTAINING_KEY_OBTAINED_FROM_SERVICE_ACCOUNT>;%PATH%
+
+
+Start App:
+    nodemon  run backend
     
